@@ -22,6 +22,10 @@ def add_contact() :
     add_name=input('\tEnter name : ')
     add_num=input('\tEnter number : ')
     try:
+        add_num = int(add_num)
+    except Exception as e:
+        print('Enter valid number')
+    try:
         cur = db.cursor()
         cur.execute('insert into Contact values ("{}","{}")'.format(add_name, add_num,))
         db.commit()
@@ -57,6 +61,11 @@ def update_contact():
     elif sel==2:
         upd_name2=input("Enter your  name:")
         upd_number2=input("Enter your new number")
+        try:
+            upd_number2=int(upd_number2)
+        except Exception as e:
+            print ('Enter valid number')
+
         a=name_check(upd_name2)
         try:
             if a.fetchone() == None:
@@ -92,6 +101,10 @@ def search_contact():
         pass
     if sel==2:
         search_num=input('\n\tEnter number : ')
+        try:
+            search_num=int(search_num)
+        except Exception as e:
+            print ('Enter valid number')
         try:
             cur = db.cursor()
             cur.execute('Select * from Contact where number ="{}"'.format(
@@ -153,6 +166,7 @@ def Contact_MANG():
         if sel == 1:
             try:
                 a = add_contact()
+                print ('Contact added successfully ')
             except Exception as e:
                 print ('Error adding contact')
                 print (e)
